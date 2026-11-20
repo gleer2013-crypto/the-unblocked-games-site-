@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ArcadeDeck — Unblocked Browser Games &amp; Web Proxy</title>
+    <meta
+      name="description"
+      content="An unblocked browser games website built with HTML, CSS, and JavaScript featuring 16 iframe games and a built-in web search proxy."
+    />
+    <meta property="og:title" content="ArcadeDeck — Unblocked Browser Games &amp; Web Proxy" />
+    <meta
+      property="og:description"
+      content="Play Basket Random, Soccer Random, Slope Dash, Rooftop Duel, and more in sandboxed iframes, or browse the web with the built-in proxy."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body class="bg-[#111318] text-[#F4F5F7] antialiased selection:bg-[#F97316]/30 selection:text-white">
+    <div id="app" class="min-h-screen flex flex-col">
+      <!-- Top Bar (Strict 3-zone contract) -->
+      <header class="sticky top-0 z-30 border-b border-white/10 bg-[#111318]/95 backdrop-blur-sm">
+        <div class="mx-auto flex max-w-[1200px] items-center justify-between gap-8 px-4 py-4 sm:px-6">
+          <a
+            href="#top"
+            id="brand-home-link"
+            class="font-display text-xl font-bold tracking-tight text-white whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] rounded"
+          >
+            ArcadeDeck
+          </a>
+
+          <nav aria-label="Primary navigation" class="hidden md:flex items-center gap-6 text-sm font-medium text-[#9CA3AF]">
+            <button
+              type="button"
+              data-nav-filter="All"
+              class="nav-link hover:text-white transition-colors whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] rounded px-1 py-0.5"
+            >
+              All Games
+            </button>
+            <button
+              type="button"
+              data-nav-filter="Sports"
+              class="nav-link hover:text-white transition-colors whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] rounded px-1 py-0.5"
+            >
+              Sports
+            </button>
+            <button
+              type="button"
+              data-nav-filter="Action"
+              class="nav-link hover:text-white transition-colors whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] rounded px-1 py-0.5"
+            >
+              Action
+            </button>
+            <button
+              type="button"
+              id="open-proxy-nav-btn"
+              class="nav-link hover:text-white transition-colors whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] rounded px-1 py-0.5"
+            >
+              Web Proxy
+            </button>
+          </nav>
+
+          <div class="flex items-center shrink-0">
+            <button
+              type="button"
+              id="random-game-btn"
+              class="inline-flex items-center justify-center rounded-lg bg-[#F97316] px-4 py-2 text-sm font-semibold text-[#111318] transition-colors hover:bg-[#FB923C] whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              Random Game
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main id="top" class="flex-1">
+        <!-- Hero Spotlight -->
+        <section id="hero-section" class="border-b border-white/10 bg-[#14171F]">
+          <div class="mx-auto grid max-w-[1200px] grid-cols-1 items-stretch gap-8 px-4 py-10 sm:px-6 lg:grid-cols-12 lg:py-14">
+            <div class="flex flex-col justify-center lg:col-span-6">
+              <p class="text-sm font-medium text-[#F97316]">24 Official HTML5 Games &amp; Web Proxy</p>
+              <h1 class="font-display mt-3 text-4xl font-bold tracking-tight text-white sm:text-5xl text-balance leading-[1.08]">
+                Play the real classics, unblocked in one deck.
+              </h1>
+              <p class="mt-4 max-w-xl text-base leading-relaxed text-[#9CA3AF]">
+                Launch real browser editions of Basket Random, Slope, Subway Surfers, Run 3, and 20 more directly from <code class="font-mono text-sm text-[#E5E7EB]">games.json</code>, or browse anywhere with the built-in proxy.
+              </p>
+              <div class="mt-7 flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  id="hero-play-btn"
+                  class="inline-flex items-center gap-2 rounded-lg bg-[#F97316] px-5 py-2.5 text-sm font-semibold text-[#111318] transition-colors hover:bg-[#FB923C] whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                >
+                  Play Basket Random
+                </button>
+                <button
+                  type="button"
+                  id="hero-proxy-btn"
+                  class="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-[#1B1F2A] px-5 py-2.5 text-sm font-medium text-[#E5E7EB] transition-colors hover:border-white/30 hover:text-white whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316]"
+                >
+                  Open Web Proxy
+                </button>
+              </div>
+            </div>
+
+            <div class="lg:col-span-6">
+              <div
+                id="hero-featured-card"
+                role="button"
+                tabindex="0"
+                aria-label="Play featured game"
+                class="group relative h-full min-h-[260px] overflow-hidden rounded-xl border border-white/10 bg-[#1A1D26] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316]"
+              >
+                <div class="fallback-art absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#1F2430] to-[#14171F]">
+                  <span class="font-display text-2xl font-bold text-white/30">Featured Game</span>
+                </div>
+                <img
+                  id="hero-featured-img"
+                  src=""
+                  alt="Featured game preview"
+                  referrerpolicy="no-referrer"
+                  class="relative z-10 h-full w-full object-cover transition-transform duration-200 group-hover:scale-[1.02]"
+                />
+                <div class="absolute inset-0 z-20 bg-gradient-to-t from-black/85 via-black/35 to-transparent"></div>
+                <div class="absolute inset-x-0 bottom-0 z-30 flex items-end justify-between gap-4 p-6">
+                  <div>
+                    <div id="hero-featured-meta" class="text-xs font-medium text-[#D1D5DB]">Sports</div>
+                    <h2 id="hero-featured-title" class="font-display mt-1 text-2xl font-bold text-white">
+                      Basket Random
+                    </h2>
+                  </div>
+                  <span class="inline-flex items-center rounded-lg bg-[#F97316] px-4 py-2 text-sm font-semibold text-[#111318] whitespace-nowrap shrink-0 transition-colors group-hover:bg-[#FB923C]">
+                    Launch
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Built-in Web Proxy Browser Section -->
+        <section id="proxy-section" class="hidden border-b border-white/10 bg-[#0D0F14]">
+          <div class="mx-auto max-w-[1200px] px-4 py-6 sm:px-6">
+            <div class="flex flex-wrap items-center justify-between gap-4 pb-4">
+              <div>
+                <h2 class="font-display text-xl font-bold text-white sm:text-2xl">Web Search Proxy</h2>
+                <p class="text-xs text-[#9CA3AF]">
+                  Search anything or enter any public URL to browse inside a proxied iframe.
+                </p>
+              </div>
+              <button
+                type="button"
+                id="proxy-close-btn"
+                class="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-[#191C24] px-3.5 py-2 text-sm font-medium text-[#E5E7EB] transition-colors hover:border-white/30 hover:text-white whitespace-nowrap shrink-0 cursor-pointer"
+              >
+                <span aria-hidden="true">&larr;</span>
+                Back to Games
+              </button>
+            </div>
+
+            <!-- Browser Address / Search Bar -->
+            <form id="proxy-form" class="flex flex-wrap items-center gap-2 rounded-xl border border-white/15 bg-[#161922] p-2.5">
+              <div class="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  id="proxy-back-btn"
+                  title="Back"
+                  class="rounded-lg border border-white/10 bg-[#1F2430] px-3 py-2 text-xs font-medium text-[#D1D5DB] hover:text-white disabled:opacity-40 cursor-pointer"
+                >
+                  Back
+                </button>
+                <button
+                  type="button"
+                  id="proxy-reload-btn"
+                  title="Reload"
+                  class="rounded-lg border border-white/10 bg-[#1F2430] px-3 py-2 text-xs font-medium text-[#D1D5DB] hover:text-white cursor-pointer"
+                >
+                  Reload
+                </button>
+              </div>
+
+              <label for="proxy-input" class="sr-only">Search anything or enter URL</label>
+              <input
+                id="proxy-input"
+                type="text"
+                placeholder="Search anything (e.g. solar system) or enter a URL (e.g. wikipedia.org)..."
+                class="min-w-[200px] flex-1 rounded-lg border border-white/10 bg-[#0D1017] px-3.5 py-2 text-sm text-white placeholder-[#6B7280] focus:border-[#F97316] focus:outline-none"
+              />
+
+              <button
+                type="submit"
+                class="rounded-lg bg-[#F97316] px-5 py-2 text-sm font-semibold text-[#111318] transition-colors hover:bg-[#FB923C] whitespace-nowrap shrink-0 cursor-pointer"
+              >
+                Search / Go
+              </button>
+            </form>
+
+            <!-- Quick Bookmarks -->
+            <div class="mt-3 flex flex-wrap items-center gap-2 text-xs text-[#9CA3AF]">
+              <span>Quick sites:</span>
+              <button type="button" data-proxy-quick="https://en.wikipedia.org" class="rounded-md border border-white/10 bg-[#191C24] px-2.5 py-1 text-[#D1D5DB] hover:border-white/25 hover:text-white cursor-pointer">
+                Wikipedia
+              </button>
+              <button type="button" data-proxy-quick="https://news.ycombinator.com" class="rounded-md border border-white/10 bg-[#191C24] px-2.5 py-1 text-[#D1D5DB] hover:border-white/25 hover:text-white cursor-pointer">
+                Hacker News
+              </button>
+              <button type="button" data-proxy-quick="https://lite.duckduckgo.com/lite/" class="rounded-md border border-white/10 bg-[#191C24] px-2.5 py-1 text-[#D1D5DB] hover:border-white/25 hover:text-white cursor-pointer">
+                DuckDuckGo Lite
+              </button>
+              <button type="button" data-proxy-quick="https://example.com" class="rounded-md border border-white/10 bg-[#191C24] px-2.5 py-1 text-[#D1D5DB] hover:border-white/25 hover:text-white cursor-pointer">
+                Example.com
+              </button>
+            </div>
+
+            <!-- Proxy Viewport Frame -->
+            <div
+              id="proxy-frame-wrap"
+              class="mt-4 relative w-full overflow-hidden rounded-xl border border-white/15 bg-[#090B0E] h-[68vh] min-h-[480px]"
+            >
+              <div id="proxy-empty-state" class="flex h-full flex-col items-center justify-center p-8 text-center">
+                <h3 class="font-display text-2xl font-bold text-white">Search Anything Unblocked</h3>
+                <p class="mt-2 max-w-md text-sm text-[#9CA3AF]">
+                  Type any search topic or website address above. Search results and web pages are fetched through the server proxy and rendered inside this frame.
+                </p>
+              </div>
+              <iframe
+                id="proxy-iframe"
+                title="Web Proxy Browser"
+                class="hidden h-full w-full border-0 bg-white"
+              ></iframe>
+            </div>
+          </div>
+        </section>
+
+        <!-- Active Game Player Stage -->
+        <section id="player-section" class="hidden border-b border-white/10 bg-[#0D0F14]">
+          <div id="player-container" class="mx-auto max-w-[1200px] px-4 py-6 sm:px-6 transition-[max-width]">
+            <div class="flex flex-wrap items-center justify-between gap-4 pb-4">
+              <div class="flex items-center gap-4 min-w-0">
+                <button
+                  type="button"
+                  id="player-back-btn"
+                  class="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-[#191C24] px-3.5 py-2 text-sm font-medium text-[#E5E7EB] transition-colors hover:border-white/30 hover:text-white whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316]"
+                >
+                  <span aria-hidden="true">&larr;</span>
+                  Back to Library
+                </button>
+                <div class="min-w-0">
+                  <h2 id="player-title" class="font-display truncate text-xl font-bold text-white sm:text-2xl">
+                    Game Title
+                  </h2>
+                  <p id="player-meta" class="truncate text-xs text-[#9CA3AF]">
+                    Category · Controls
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  id="player-favorite-btn"
+                  class="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-[#191C24] px-3.5 py-2 text-sm font-medium text-[#E5E7EB] transition-colors hover:border-white/30 hover:text-white whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316]"
+                >
+                  Save Favorite
+                </button>
+                <button
+                  type="button"
+                  id="player-reload-btn"
+                  class="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-[#191C24] px-3.5 py-2 text-sm font-medium text-[#E5E7EB] transition-colors hover:border-white/30 hover:text-white whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316]"
+                >
+                  Reload
+                </button>
+                <button
+                  type="button"
+                  id="player-theater-btn"
+                  class="hidden sm:inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-[#191C24] px-3.5 py-2 text-sm font-medium text-[#E5E7EB] transition-colors hover:border-white/30 hover:text-white whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316]"
+                >
+                  Wide View
+                </button>
+                <button
+                  type="button"
+                  id="player-fullscreen-btn"
+                  class="inline-flex items-center gap-1.5 rounded-lg bg-[#F97316] px-4 py-2 text-sm font-semibold text-[#111318] transition-colors hover:bg-[#FB923C] whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                >
+                  Fullscreen
+                </button>
+              </div>
+            </div>
+
+            <!-- Iframe Mount Stage -->
+            <div
+              id="iframe-stage"
+              class="relative w-full overflow-hidden rounded-xl border border-white/15 bg-[#090B0E] h-[68vh] min-h-[460px] max-h-[780px]"
+            ></div>
+
+            <div class="mt-4 flex flex-wrap items-center justify-between gap-4 text-sm text-[#9CA3AF]">
+              <p id="player-description" class="max-w-2xl"></p>
+              <div class="flex items-center gap-2 font-mono text-xs text-[#D1D5DB]">
+                <span>Controls:</span>
+                <span id="player-controls">Arrow Keys</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Catalog Section -->
+        <section id="catalog-section" class="mx-auto max-w-[1200px] px-4 py-10 sm:px-6">
+          <div class="flex flex-col gap-5 border-b border-white/10 pb-6 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <h2 class="font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                Game Library
+              </h2>
+              <p id="catalog-count" class="mt-1 text-sm text-[#9CA3AF] tabular-nums">
+                Loading games from games.json...
+              </p>
+            </div>
+
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center flex-wrap">
+              <div class="relative">
+                <label for="search-input" class="sr-only">Search games</label>
+                <input
+                  id="search-input"
+                  type="search"
+                  placeholder="Search 24+ games..."
+                  class="w-full rounded-lg border border-white/15 bg-[#191C24] px-4 py-2 text-sm text-white placeholder-[#6B7280] focus:border-[#F97316] focus:outline-none focus:ring-1 focus:ring-[#F97316] sm:w-56"
+                />
+              </div>
+
+              <div
+                id="category-tabs"
+                role="tablist"
+                aria-label="Filter games by category"
+                class="inline-flex flex-wrap items-center gap-1 rounded-lg bg-[#191C24] p-1 border border-white/10"
+              >
+                <button
+                  type="button"
+                  data-category="All"
+                  class="filter-tab rounded-md px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                >
+                  All
+                </button>
+                <button
+                  type="button"
+                  data-category="Sports"
+                  class="filter-tab rounded-md px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                >
+                  Sports
+                </button>
+                <button
+                  type="button"
+                  data-category="Action"
+                  class="filter-tab rounded-md px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                >
+                  Action
+                </button>
+                <button
+                  type="button"
+                  data-category="Arcade"
+                  class="filter-tab rounded-md px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                >
+                  Arcade
+                </button>
+                <button
+                  type="button"
+                  data-category="Puzzle"
+                  class="filter-tab rounded-md px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                >
+                  Puzzle
+                </button>
+                <button
+                  type="button"
+                  data-category="Favorites"
+                  class="filter-tab rounded-md px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                >
+                  Favorites
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Status / Error Banner -->
+          <div id="catalog-status" class="hidden py-12 text-center"></div>
+
+          <!-- Games Grid -->
+          <div
+            id="games-grid"
+            class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          ></div>
+        </section>
+      </main>
+
+      <!-- Footer -->
+      <footer class="border-t border-white/10 bg-[#111318]">
+        <div class="mx-auto flex max-w-[1200px] flex-col items-start justify-between gap-4 px-4 py-6 text-xs text-[#9CA3AF] sm:flex-row sm:items-center sm:px-6">
+          <p>ArcadeDeck · HTML, CSS, JavaScript, JSON Iframe Library &amp; Web Proxy.</p>
+          <div class="flex items-center gap-6">
+            <button
+              type="button"
+              id="footer-proxy-btn"
+              class="hover:text-white transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            >
+              Web Proxy
+            </button>
+            <button
+              type="button"
+              id="footer-json-btn"
+              class="hover:text-white transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            >
+              Manage games.json
+            </button>
+            <a
+              href="/games.json"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:text-white transition-colors whitespace-nowrap shrink-0"
+            >
+              Raw JSON File
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- JSON & Add Custom Iframe Modal -->
+    <div
+      id="json-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="json-modal-title"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/75 p-4 backdrop-blur-xs"
+    >
+      <div class="flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-xl border border-white/15 bg-[#161922] shadow-2xl">
+        <div class="flex items-center justify-between gap-4 border-b border-white/10 px-6 py-4">
+          <div>
+            <h2 id="json-modal-title" class="font-display text-lg font-bold text-white">
+              Games JSON &amp; Custom Iframes
+            </h2>
+            <p class="text-xs text-[#9CA3AF]">
+              Each game is stored as an iframe entry in <code class="font-mono text-[#E5E7EB]">games.json</code>.
+            </p>
+          </div>
+          <button
+            type="button"
+            id="close-json-modal-btn"
+            class="rounded-lg border border-white/15 bg-[#1F2430] px-3 py-1.5 text-xs font-medium text-[#E5E7EB] hover:text-white whitespace-nowrap shrink-0 cursor-pointer"
+          >
+            Close
+          </button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-6 space-y-8">
+          <form id="add-game-form" class="space-y-4">
+            <h3 class="font-display text-base font-semibold text-white">Add Custom Iframe Game</h3>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label for="custom-title" class="block text-xs font-medium text-[#D1D5DB] mb-1.5">
+                  Game Title
+                </label>
+                <input
+                  id="custom-title"
+                  type="text"
+                  required
+                  placeholder="e.g. Retro Pong"
+                  class="w-full rounded-lg border border-white/15 bg-[#111318] px-3 py-2 text-sm text-white placeholder-[#6B7280] focus:border-[#F97316] focus:outline-none"
+                />
+              </div>
+              <div>
+                <label for="custom-category" class="block text-xs font-medium text-[#D1D5DB] mb-1.5">
+                  Category
+                </label>
+                <select
+                  id="custom-category"
+                  class="w-full rounded-lg border border-white/15 bg-[#111318] px-3 py-2 text-sm text-white focus:border-[#F97316] focus:outline-none"
+                >
+                  <option value="Sports">Sports</option>
+                  <option value="Action">Action</option>
+                  <option value="Arcade">Arcade</option>
+                  <option value="Puzzle">Puzzle</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label for="custom-controls" class="block text-xs font-medium text-[#D1D5DB] mb-1.5">
+                  Controls
+                </label>
+                <input
+                  id="custom-controls"
+                  type="text"
+                  placeholder="e.g. WASD / Spacebar"
+                  class="w-full rounded-lg border border-white/15 bg-[#111318] px-3 py-2 text-sm text-white placeholder-[#6B7280] focus:border-[#F97316] focus:outline-none"
+                />
+              </div>
+              <div>
+                <label for="custom-description" class="block text-xs font-medium text-[#D1D5DB] mb-1.5">
+                  Short Description
+                </label>
+                <input
+                  id="custom-description"
+                  type="text"
+                  placeholder="Brief description of the game"
+                  class="w-full rounded-lg border border-white/15 bg-[#111318] px-3 py-2 text-sm text-white placeholder-[#6B7280] focus:border-[#F97316] focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="custom-iframe" class="block text-xs font-medium text-[#D1D5DB] mb-1.5">
+                Iframe HTML or Game URL
+              </label>
+              <textarea
+                id="custom-iframe"
+                rows="2"
+                required
+                placeholder='<iframe src="/games/basket-random.html" title="Custom Game" allowfullscreen></iframe> or https://...'
+                class="w-full rounded-lg border border-white/15 bg-[#111318] px-3 py-2 font-mono text-xs text-white placeholder-[#6B7280] focus:border-[#F97316] focus:outline-none"
+              ></textarea>
+              <p id="add-game-feedback" class="mt-1.5 text-xs text-[#9CA3AF]"></p>
+            </div>
+
+            <div class="flex items-center justify-end gap-3">
+              <button
+                type="submit"
+                class="rounded-lg bg-[#F97316] px-4 py-2 text-sm font-semibold text-[#111318] hover:bg-[#FB923C] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+              >
+                Add to Catalog
+              </button>
+            </div>
+          </form>
+
+          <hr class="border-white/10" />
+
+          <div class="space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <h3 class="font-display text-base font-semibold text-white">Current games.json Payload</h3>
+              <div class="flex items-center gap-2">
+                <button
+                  type="button"
+                  id="copy-json-btn"
+                  class="rounded-lg border border-white/15 bg-[#1F2430] px-3 py-1.5 text-xs font-medium text-[#E5E7EB] hover:text-white whitespace-nowrap shrink-0 cursor-pointer"
+                >
+                  Copy JSON
+                </button>
+                <button
+                  type="button"
+                  id="download-json-btn"
+                  class="rounded-lg border border-white/15 bg-[#1F2430] px-3 py-1.5 text-xs font-medium text-[#E5E7EB] hover:text-white whitespace-nowrap shrink-0 cursor-pointer"
+                >
+                  Download games.json
+                </button>
+              </div>
+            </div>
+            <pre
+              id="json-preview"
+              class="max-h-64 overflow-auto rounded-lg border border-white/10 bg-[#0B0D11] p-4 font-mono text-xs leading-relaxed text-[#D1D5DB]"
+            ></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

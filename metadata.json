@@ -1,0 +1,8 @@
+{
+  "name": "ArcadeDeck",
+  "description": "An unblocked browser games website built with HTML, CSS, and JavaScript that loads each game as an iframe from a JSON file.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
