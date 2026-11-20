@@ -1,3 +1,5 @@
+import './style.css';
+
 const STORAGE_FAVORITES_KEY = 'arcadedeck_favorites';
 const STORAGE_CUSTOM_GAMES_KEY = 'arcadedeck_custom_games';
 
@@ -769,4 +771,8 @@ async function init() {
   }
 }
 
-init();
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
