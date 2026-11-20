@@ -328,9 +328,17 @@ function renderCatalog() {
 
     const metaEl = document.createElement('div');
     metaEl.className = 'mt-1 flex items-center gap-2 text-xs text-[#9CA3AF]';
-    metaEl.innerHTML = `<span></span><span aria-hidden="true">·</span><span class="truncate"></span>`;
-    metaEl.children[0].textContent = game.category;
-    metaEl.children[2].textContent = game.controls || 'Keyboard / Mouse';
+    const catSpan = document.createElement('span');
+    catSpan.textContent = game.category;
+    const dotSpan = document.createElement('span');
+    dotSpan.setAttribute('aria-hidden', 'true');
+    dotSpan.textContent = '·';
+    const ctrlSpan = document.createElement('span');
+    ctrlSpan.className = 'truncate';
+    ctrlSpan.textContent = game.controls || 'Keyboard / Mouse';
+    metaEl.appendChild(catSpan);
+    metaEl.appendChild(dotSpan);
+    metaEl.appendChild(ctrlSpan);
 
     const descEl = document.createElement('p');
     descEl.className = 'mt-3 flex-1 text-sm leading-relaxed text-[#D1D5DB]';
