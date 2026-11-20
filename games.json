@@ -5,7 +5,7 @@
     "category": "Sports",
     "description": "The official physics-based 2v2 basketball game by TwoPlayerGames with unpredictable courts, balls, and ragdoll dunks.",
     "controls": "W (P1) / Up Arrow (P2)",
-    "thumbnail": "/src/assets/images/game_basket_random_1795136853015.jpg",
+    "thumbnail": "./src/assets/images/game_basket_random_1795136853015.jpg",
     "featured": true,
     "iframe": "<iframe src=\"https://ubg98.github.io/BasketRandom/\" title=\"Basket Random\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -15,7 +15,7 @@
     "category": "Sports",
     "description": "The official ragdoll physics soccer game! Score goals across snowy, beach, and classic pitches in 1P or 2P mode.",
     "controls": "W (P1) / Up Arrow (P2)",
-    "thumbnail": "/src/assets/images/game_soccer_random_1795136853016.jpg",
+    "thumbnail": "./src/assets/images/game_soccer_random_1795136853016.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/SoccerRandom/\" title=\"Soccer Random\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -25,7 +25,7 @@
     "category": "Sports",
     "description": "The official bouncy physics volleyball game with random balls, giant heads, and unpredictable courts.",
     "controls": "W (P1) / Up Arrow (P2)",
-    "thumbnail": "/src/assets/images/game_volley_random_1795137514900.jpg",
+    "thumbnail": "./src/assets/images/game_volley_random_1795137514900.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/VolleyRandom/\" title=\"Volley Random\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -35,7 +35,7 @@
     "category": "Sports",
     "description": "The official physics boxing showdown where punch reach, head size, and ring physics shift every round.",
     "controls": "W (P1) / Up Arrow (P2)",
-    "thumbnail": "/src/assets/images/game_boxing_random_1795137515196.jpg",
+    "thumbnail": "./src/assets/images/game_boxing_random_1795137515196.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/BoxingRandom/\" title=\"Boxing Random\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -45,7 +45,7 @@
     "category": "Action",
     "description": "The original 3D WebGL endless speed-ball downhill runner. Steer past red barriers and survive steep drops.",
     "controls": "A / D or Left / Right Arrows",
-    "thumbnail": "/src/assets/images/game_slope_dash_1795136852317.jpg",
+    "thumbnail": "./src/assets/images/game_slope_dash_1795136852317.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/SlopeGame/\" title=\"Slope\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -55,7 +55,7 @@
     "category": "Action",
     "description": "The original chaotic 2-button physics sniper duel! Jump, aim, and blast your opponent off the rooftop.",
     "controls": "W / E (P1) · I / O (P2)",
-    "thumbnail": "/src/assets/images/game_rooftop_duel_1795136852034.jpg",
+    "thumbnail": "./src/assets/images/game_rooftop_duel_1795136852034.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/RooftopSnipers/\" title=\"Rooftop Snipers\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -65,7 +65,7 @@
     "category": "Action",
     "description": "Dash along the subway tracks, dodge oncoming trains, and collect coins on your hoverboard.",
     "controls": "Arrow Keys / Spacebar",
-    "thumbnail": "/src/assets/images/game_subway_surfers_1795137515840.jpg",
+    "thumbnail": "./src/assets/images/game_subway_surfers_1795137515840.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/SubwaySurfers/\" title=\"Subway Surfers\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -75,7 +75,7 @@
     "category": "Arcade",
     "description": "Jump and fly your way through rhythm-synced spikes, portals, and geometric obstacle courses.",
     "controls": "Spacebar / Up Arrow / Click",
-    "thumbnail": "/src/assets/images/game_geo_jumper_1795136853013.jpg",
+    "thumbnail": "./src/assets/images/game_geo_jumper_1795136853013.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/GeometryDash/\" title=\"Geometry Dash\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -85,7 +85,7 @@
     "category": "Sports",
     "description": "Play 1v1 or 2v2 streetball with supershots, steals, blocks, and signature dunks.",
     "controls": "WASD + B/X or Arrow Keys + L/K",
-    "thumbnail": "/src/assets/images/game_basketball_stars_1795137515457.jpg",
+    "thumbnail": "./src/assets/images/game_basketball_stars_1795137515457.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/BasketballStars/\" title=\"Basketball Stars\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -95,7 +95,7 @@
     "category": "Action",
     "description": "Sprint through floating 3D space tunnels, rotate gravity along the walls, and unlock new alien runners.",
     "controls": "Arrow Keys / WASD + Space",
-    "thumbnail": "/src/assets/images/game_run3_1795137515071.jpg",
+    "thumbnail": "./src/assets/images/game_run3_1795137515071.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/Run3/\" title=\"Run 3\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -105,7 +105,7 @@
     "category": "Arcade",
     "description": "One-button isometric drifting! Hold to drift right and release to straighten out along endless sky platforms.",
     "controls": "Spacebar / Mouse Click",
-    "thumbnail": "/src/assets/images/game_drift_boss_1795137514820.jpg",
+    "thumbnail": "./src/assets/images/game_drift_boss_1795137514820.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/DriftBoss/\" title=\"Drift Boss\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -115,7 +115,7 @@
     "category": "Arcade",
     "description": "Drive carefully over steep hills while keeping a fragile egg balanced safely inside your car.",
     "controls": "Left / Right Arrows or A / D",
-    "thumbnail": "/src/assets/images/game_eggy_car_1795137515192.jpg",
+    "thumbnail": "./src/assets/images/game_eggy_car_1795137515192.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/EggyCar/\" title=\"Eggy Car\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -125,7 +125,7 @@
     "category": "Action",
     "description": "Fast-paced parkour platformer! Slide, dive, wall-jump, and smash through precision obstacle stages.",
     "controls": "Arrow Keys (Down to Slide)",
-    "thumbnail": "/src/assets/images/game_ovo_1795137514921.jpg",
+    "thumbnail": "./src/assets/images/game_ovo_1795137514921.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/OvO/\" title=\"OvO\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -135,7 +135,7 @@
     "category": "Action",
     "description": "Acrobatic stickman platformer packed with sawblades, grappling hooks, double-jumps, and timed acts.",
     "controls": "WASD or Arrow Keys",
-    "thumbnail": "/src/assets/images/game_vex7_1795137515546.jpg",
+    "thumbnail": "./src/assets/images/game_vex7_1795137515546.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/Vex7/\" title=\"Vex 7\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -145,7 +145,7 @@
     "category": "Arcade",
     "description": "Bake trillions of cookies! Click to produce, buy grandmas and factories, and trigger golden cookie frenzies.",
     "controls": "Mouse Click",
-    "thumbnail": "/src/assets/images/game_cookie_clicker_1795137515301.jpg",
+    "thumbnail": "./src/assets/images/game_cookie_clicker_1795137515301.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/CookieClicker2/\" title=\"Cookie Clicker\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -155,7 +155,7 @@
     "category": "Sports",
     "description": "Classic billiards with precision cue aiming, spin control, and solo or 2-player local matches.",
     "controls": "Mouse Aim & Drag Shot",
-    "thumbnail": "/src/assets/images/game_8ball_pool_1795137515305.jpg",
+    "thumbnail": "./src/assets/images/game_8ball_pool_1795137515305.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/8BallPool/\" title=\"8 Ball Pool\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -165,7 +165,7 @@
     "category": "Arcade",
     "description": "Bounce endlessly up graph-paper platforms using springs and jetpacks while dodging hazards.",
     "controls": "Left / Right Arrows or A / D",
-    "thumbnail": "/src/assets/images/game_doodle_jump_1795137515255.jpg",
+    "thumbnail": "./src/assets/images/game_doodle_jump_1795137515255.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/DoodleJump/\" title=\"Doodle Jump\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -175,7 +175,7 @@
     "category": "Arcade",
     "description": "Swipe to slice flying fruit combos in Classic, Zen, and Arcade modes while avoiding bombs.",
     "controls": "Mouse Drag / Swipe",
-    "thumbnail": "/src/assets/images/game_fruit_ninja_1795137515275.jpg",
+    "thumbnail": "./src/assets/images/game_fruit_ninja_1795137515275.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/FruitNinja/\" title=\"Fruit Ninja\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -185,7 +185,7 @@
     "category": "Action",
     "description": "Top-down tank maze battle with ricocheting shells and laser power-ups for 1, 2, or 3 players.",
     "controls": "Arrows + M / ESDF + Q",
-    "thumbnail": "/src/assets/images/game_tank_trouble_1795137515096.jpg",
+    "thumbnail": "./src/assets/images/game_tank_trouble_1795137515096.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/TankTrouble/\" title=\"Tank Trouble\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -195,7 +195,7 @@
     "category": "Puzzle",
     "description": "Navigate the red square through 30 notoriously tight levels of patrolling blue orbs to grab every coin.",
     "controls": "Arrow Keys / WASD",
-    "thumbnail": "/src/assets/images/game_worlds_hardest_1795137515634.jpg",
+    "thumbnail": "./src/assets/images/game_worlds_hardest_1795137515634.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/WorldsHardestGame/\" title=\"World's Hardest Game\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -205,7 +205,7 @@
     "category": "Arcade",
     "description": "Cast your line deep underwater, reel in rare catches, and upgrade hook depth and capacity.",
     "controls": "Mouse Click & Drag",
-    "thumbnail": "/src/assets/images/game_tiny_fishing_1795137514929.jpg",
+    "thumbnail": "./src/assets/images/game_tiny_fishing_1795137514929.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/TinyFishing/\" title=\"Tiny Fishing\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -215,7 +215,7 @@
     "category": "Puzzle",
     "description": "Guess the 5-letter mystery word in six tries with unlimited rounds and color-coded letter feedback.",
     "controls": "Keyboard Typing + Enter",
-    "thumbnail": "/src/assets/images/game_wordle_1795137516122.jpg",
+    "thumbnail": "./src/assets/images/game_wordle_1795137516122.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/WordleUnlimited/\" title=\"Wordle Unlimited\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -225,7 +225,7 @@
     "category": "Arcade",
     "description": "Classic arcade maze chase! Gobble every dot and power pellet while outsmarting Blinky, Pinky, Inky, and Clyde.",
     "controls": "Arrow Keys / WASD",
-    "thumbnail": "/src/assets/images/game_pacman_1795137515465.jpg",
+    "thumbnail": "./src/assets/images/game_pacman_1795137515465.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/PacmanHTML5/\" title=\"Pac-Man\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   },
@@ -235,7 +235,7 @@
     "category": "Puzzle",
     "description": "Slide and combine matching number tiles across the grid to reach 2048 and beyond.",
     "controls": "Arrow Keys / WASD / Swipe",
-    "thumbnail": "/src/assets/images/game_tiles_2048_1795136322994.jpg",
+    "thumbnail": "./src/assets/images/game_tiles_2048_1795136322994.jpg",
     "featured": false,
     "iframe": "<iframe src=\"https://ubg98.github.io/2048Fusion/\" title=\"2048 Fusion\" loading=\"lazy\" allow=\"autoplay; fullscreen; gamepad; pointer-lock\" allowfullscreen></iframe>"
   }

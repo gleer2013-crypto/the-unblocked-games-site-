@@ -449,6 +449,12 @@ async function startServer() {
   });
 
   if (process.env.NODE_ENV !== 'production') {
+    app.get('/style.css', (_req, res) => {
+      res.type('text/css').sendFile(path.resolve(__dirname, 'style.css'));
+    });
+    app.get('/games.json', (_req, res) => {
+      res.type('application/json').sendFile(path.resolve(__dirname, 'games.json'));
+    });
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: 'spa',

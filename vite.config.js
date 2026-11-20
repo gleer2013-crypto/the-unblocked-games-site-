@@ -27,6 +27,11 @@ export default defineConfig(() => {
           if (fs.existsSync(distDir) && fs.existsSync(srcAssets)) {
             fs.cpSync(srcAssets, distAssets, { recursive: true, force: true });
           }
+          const rootGames = path.resolve(__dirname, 'games.json');
+          const distGames = path.resolve(distDir, 'games.json');
+          if (fs.existsSync(distDir) && fs.existsSync(rootGames)) {
+            fs.copyFileSync(rootGames, distGames);
+          }
         },
       },
     ],

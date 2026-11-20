@@ -1,5 +1,3 @@
-import './style.css';
-
 const STORAGE_FAVORITES_KEY = 'arcadedeck_favorites';
 const STORAGE_CUSTOM_GAMES_KEY = 'arcadedeck_custom_games';
 
@@ -13,6 +11,7 @@ const state = {
   proxyOpen: false,
   proxyHistory: [],
   wideMode: false,
+  hasBackendProxy: null,
 };
 
 const els = {
@@ -73,6 +72,15 @@ const els = {
   downloadJsonBtn: document.getElementById('download-json-btn'),
 };
 
+function escapeHtml(text) {
+  return String(text || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 function loadLocalState() {
   try {
     const savedFavs = JSON.parse(localStorage.getItem(STORAGE_FAVORITES_KEY) || '[]');
@@ -112,7 +120,7 @@ function getAllGames() {
 function isSafeIframeSrc(src) {
   if (!src || typeof src !== 'string') return false;
   const trimmed = src.trim();
-  if (trimmed.startsWith('/')) return true;
+  if (trimmed.startsWith('/') || trimmed.startsWith('./')) return true;
   try {
     const parsed = new URL(trimmed);
     return parsed.protocol === 'https:' || parsed.protocol === 'http:';
@@ -419,7 +427,15 @@ function mountActiveIframe(game) {
     return;
   }
 
+  const loadingHint = document.createElement('div');
+  loadingHint.className =
+    'pointer-events-none absolute inset-0 flex items-center justify-center text-sm text-[#9CA3AF]';
+  loadingHint.textContent = `Loading ${game.title}...`;
+  els.iframeStage.appendChild(loadingHint);
+
+  iframe.className = 'relative z-10 h-full w-full border-0 block';
   iframe.addEventListener('load', () => {
+    loadingHint.remove();
     try {
       iframe.focus();
     } catch {}
@@ -462,6 +478,152 @@ function closePlayer() {
 }
 
 /* ---- Web Proxy Logic ---- */
+async function detectBackendProxy() {
+  if (state.hasBackendProxy !== null) return state.hasBackendProxy;
+  try {
+    const res = await fetch('/api/health', { signal: AbortSignal.timeout(2000) });
+    if (res.ok) {
+      const json = await res.json();
+      state.hasBackendProxy = Boolean(json && json.ok);
+      return state.hasBackendProxy;
+    }
+  } catch {}
+  state.hasBackendProxy = false;
+  return false;
+}
+
+function buildStaticSearchHtml(query, results) {
+  const items = results.length
+    ? results
+        .map(
+          (item) => `
+      <article class="result">
+        <div class="meta">${escapeHtml(item.source)} · ${escapeHtml(item.url)}</div>
+        <a class="title" href="${escapeHtml(item.url)}" data-proxy-link="${escapeHtml(item.url)}">${escapeHtml(
+            item.title
+          )}</a>
+        <p class="snippet">${escapeHtml(item.snippet || 'Open result')}</p>
+      </article>`
+        )
+        .join('')
+    : `<div class="empty">
+        <p>No direct results found for "${escapeHtml(query)}".</p>
+        <p class="sub">Try another search query or enter a full website address (e.g. wikipedia.org) in the bar above.</p>
+      </div>`;
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search: ${escapeHtml(query)}</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d1017; color: #f4f5f7; font-family: system-ui, -apple-system, sans-serif; padding: 24px; line-height: 1.5; }
+    .wrap { max-width: 780px; margin: 0 auto; }
+    .search-head { display: flex; gap: 10px; margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .search-head input { flex: 1; background: #171b24; border: 1px solid rgba(255,255,255,0.16); border-radius: 8px; padding: 10px 14px; color: #fff; font-size: 14px; }
+    .search-head button { background: #f97316; color: #111318; border: none; border-radius: 8px; padding: 10px 18px; font-weight: 700; font-size: 14px; cursor: pointer; }
+    .count { font-size: 13px; color: #9ca3af; margin-bottom: 18px; }
+    .result { padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .meta { font-size: 12px; color: #9ca3af; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px; }
+    .title { display: inline-block; font-size: 17px; font-weight: 600; color: #fb923c; text-decoration: none; margin-bottom: 5px; }
+    .title:hover { text-decoration: underline; }
+    .snippet { font-size: 14px; color: #d1d5db; }
+    .empty { padding: 40px 0; color: #d1d5db; }
+    .sub { margin-top: 8px; font-size: 13px; color: #9ca3af; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <form class="search-head" id="inner-search-form">
+      <input type="search" id="inner-q" value="${escapeHtml(query)}" placeholder="Search anything..." required />
+      <button type="submit">Search</button>
+    </form>
+    <p class="count">${results.length} results for "${escapeHtml(query)}"</p>
+    ${items}
+  </div>
+  <script>
+    document.getElementById('inner-search-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var q = document.getElementById('inner-q').value.trim();
+      if (q) window.parent.postMessage({ type: 'ARCADE_PROXY_SUBMIT', query: q }, '*');
+    });
+    document.addEventListener('click', function(e) {
+      var a = e.target && e.target.closest ? e.target.closest('a[data-proxy-link]') : null;
+      if (!a) return;
+      e.preventDefault();
+      window.parent.postMessage({ type: 'ARCADE_PROXY_SUBMIT', query: a.getAttribute('data-proxy-link') }, '*');
+    });
+  </script>
+</body>
+</html>`;
+}
+
+async function runStaticSearch(query) {
+  const results = [];
+  const seen = new Set();
+
+  try {
+    const wikiRes = await fetch(
+      `https://en.wikipedia.org/w/api.php?origin=*&action=query&list=search&srsearch=${encodeURIComponent(
+        query
+      )}&format=json&srlimit=10`,
+      { signal: AbortSignal.timeout(6000) }
+    );
+    if (wikiRes.ok) {
+      const data = await wikiRes.json();
+      const list = (data && data.query && data.query.search) || [];
+      for (const item of list) {
+        const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(item.title.replace(/ /g, '_'))}`;
+        if (!seen.has(url)) {
+          seen.add(url);
+          results.push({
+            title: `${item.title} — Wikipedia`,
+            url,
+            snippet: String(item.snippet || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim(),
+            source: 'Wikipedia',
+          });
+        }
+      }
+    }
+  } catch {}
+
+  try {
+    const ddgRes = await fetch(
+      `https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_html=1&skip_disambig=1`,
+      { signal: AbortSignal.timeout(5000) }
+    );
+    if (ddgRes.ok) {
+      const ddg = await ddgRes.json();
+      if (ddg.AbstractURL && ddg.AbstractText && !seen.has(ddg.AbstractURL)) {
+        seen.add(ddg.AbstractURL);
+        results.unshift({
+          title: ddg.Heading || query,
+          url: ddg.AbstractURL,
+          snippet: ddg.AbstractText,
+          source: ddg.AbstractSource || 'Web',
+        });
+      }
+      if (Array.isArray(ddg.RelatedTopics)) {
+        for (const topic of ddg.RelatedTopics.slice(0, 6)) {
+          if (topic && topic.FirstURL && topic.Text && !seen.has(topic.FirstURL)) {
+            seen.add(topic.FirstURL);
+            results.push({
+              title: topic.Text.split(' - ')[0] || topic.FirstURL,
+              url: topic.FirstURL,
+              snippet: topic.Text,
+              source: 'DuckDuckGo',
+            });
+          }
+        }
+      }
+    }
+  } catch {}
+
+  return buildStaticSearchHtml(query, results);
+}
+
 function openProxy() {
   state.activeGameId = null;
   els.iframeStage.innerHTML = '';
@@ -482,40 +644,61 @@ function closeProxy() {
   }
 }
 
-function resolveProxyDestination(rawInput) {
+function parseProxyInput(rawInput) {
   const trimmed = rawInput.trim();
   if (!trimmed) return null;
-
-  // Check if input looks like a URL or domain name
   const hasProtocol = /^https?:\/\//i.test(trimmed);
   const looksLikeDomain = !/\s/.test(trimmed) && /^[a-z0-9-]+(\.[a-z0-9-]+)+(\/.*)?$/i.test(trimmed);
 
   if (hasProtocol || looksLikeDomain) {
-    const fullUrl = hasProtocol ? trimmed : `https://${trimmed}`;
     return {
-      display: fullUrl,
-      frameSrc: `/api/proxy?url=${encodeURIComponent(fullUrl)}`,
+      isUrl: true,
+      value: hasProtocol ? trimmed : `https://${trimmed}`,
     };
   }
-
   return {
-    display: trimmed,
-    frameSrc: `/api/search-page?q=${encodeURIComponent(trimmed)}`,
+    isUrl: false,
+    value: trimmed,
   };
 }
 
-function navigateProxy(rawInput, pushHistory = true) {
-  const dest = resolveProxyDestination(rawInput);
-  if (!dest) return;
+async function loadProxyEntry(entry, pushHistory = true) {
+  if (!entry) return;
+  const hasBackend = await detectBackendProxy();
 
-  if (pushHistory) {
-    state.proxyHistory.push(dest.frameSrc);
-  }
-  els.proxyInput.value = dest.display;
+  els.proxyInput.value = entry.value;
   els.proxyEmptyState.classList.add('hidden');
   els.proxyIframe.classList.remove('hidden');
-  els.proxyIframe.src = dest.frameSrc;
+
+  if (pushHistory) {
+    state.proxyHistory.push(entry);
+  }
   els.proxyBackBtn.disabled = state.proxyHistory.length <= 1;
+
+  if (hasBackend) {
+    els.proxyIframe.removeAttribute('srcdoc');
+    els.proxyIframe.src = entry.isUrl
+      ? `/api/proxy?url=${encodeURIComponent(entry.value)}`
+      : `/api/search-page?q=${encodeURIComponent(entry.value)}`;
+    return;
+  }
+
+  // Static hosting mode (e.g., GitHub Pages)
+  if (entry.isUrl) {
+    els.proxyIframe.removeAttribute('srcdoc');
+    els.proxyIframe.src = entry.value;
+  } else {
+    els.proxyIframe.removeAttribute('src');
+    els.proxyIframe.srcdoc = buildStaticSearchHtml(entry.value, []);
+    const html = await runStaticSearch(entry.value);
+    els.proxyIframe.srcdoc = html;
+  }
+}
+
+function navigateProxy(rawInput, pushHistory = true) {
+  const parsed = parseProxyInput(rawInput);
+  if (!parsed) return;
+  loadProxyEntry(parsed, pushHistory);
 }
 
 function toggleFavorite(gameId) {
@@ -644,21 +827,23 @@ function wireEvents() {
   els.proxyBackBtn.addEventListener('click', () => {
     if (state.proxyHistory.length > 1) {
       state.proxyHistory.pop();
-      const prevSrc = state.proxyHistory[state.proxyHistory.length - 1];
-      els.proxyIframe.src = prevSrc;
-      els.proxyBackBtn.disabled = state.proxyHistory.length <= 1;
+      const prevEntry = state.proxyHistory[state.proxyHistory.length - 1];
+      loadProxyEntry(prevEntry, false);
     }
   });
 
   els.proxyReloadBtn.addEventListener('click', () => {
-    if (els.proxyIframe.src) {
-      els.proxyIframe.src = els.proxyIframe.src;
+    if (state.proxyHistory.length > 0) {
+      const curr = state.proxyHistory[state.proxyHistory.length - 1];
+      loadProxyEntry(curr, false);
     }
   });
 
   window.addEventListener('message', (event) => {
     if (event.data && event.data.type === 'ARCADE_PROXY_NAV' && event.data.url) {
       els.proxyInput.value = event.data.url;
+    } else if (event.data && event.data.type === 'ARCADE_PROXY_SUBMIT' && event.data.query) {
+      navigateProxy(event.data.query, true);
     }
   });
 
@@ -690,7 +875,7 @@ function wireEvents() {
     const normalizedIframe = normalizeIframeInput(iframeInput, title);
     if (!normalizedIframe) {
       els.addGameFeedback.textContent =
-        'Enter a valid <iframe> tag or a relative (/...) or https:// URL.';
+        'Enter a valid <iframe> tag or a relative (./...) or https:// URL.';
       els.addGameFeedback.className = 'mt-1.5 text-xs text-[#FCA5A5]';
       return;
     }
@@ -752,20 +937,27 @@ function wireEvents() {
   });
 }
 
+async function fetchGamesJson() {
+  for (const path of ['./games.json', './public/games.json']) {
+    try {
+      const response = await fetch(path);
+      if (response.ok) {
+        const data = await response.json();
+        if (Array.isArray(data)) return data;
+      }
+    } catch {}
+  }
+  throw new Error('Could not load games.json');
+}
+
 async function init() {
   loadLocalState();
   wireEvents();
   els.proxyBackBtn.disabled = true;
+  detectBackendProxy();
 
   try {
-    const response = await fetch('/games.json');
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-    const data = await response.json();
-    if (!Array.isArray(data)) {
-      throw new Error('Invalid games.json format');
-    }
+    const data = await fetchGamesJson();
     state.baseGames = data;
     renderFeaturedHero();
     renderCatalog();
@@ -774,7 +966,7 @@ async function init() {
     els.catalogStatus.classList.remove('hidden');
     els.catalogStatus.innerHTML = `
       <p class="text-base font-medium text-white">Could not load games.json</p>
-      <p class="mt-1 text-sm text-[#9CA3AF]">${err instanceof Error ? err.message : 'Unknown error'}</p>
+      <p class="mt-1 text-sm text-[#9CA3AF]">${escapeHtml(err instanceof Error ? err.message : 'Unknown error')}</p>
     `;
   }
 }
